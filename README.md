@@ -1,2 +1,3 @@
-# mia
-Mia game in ES6 MVC framework
+# ES6-MVC
+
+Starter for an ES6 MVC project.
