@@ -1,11 +1,8 @@
 export const elements = {
     settings: {
-        container: document.querySelector('.settings-container'),
-        start: document.querySelector('#js-settings-start'),
-        addField: document.querySelector('.js-settingsField-add')
-    },
-
-    item2: {
-        subitem: document.querySelector('body')
+        form: document.querySelector('.settings__form'),
+        addName: document.querySelector('.js-addName'),
+        addButton: document.querySelector('.js-addButton'),
+        playerList: document.querySelector('.settings__players')
     }
-};
+}

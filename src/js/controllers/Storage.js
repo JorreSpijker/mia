@@ -8,7 +8,8 @@ export const persist = (data) => {
 
 export const read = (data) => {
     const dataStorage = JSON.parse(localStorage.getItem('data'));
-    
+
     // Restore data from localStorage
-    return data = dataStorage;
+    if (dataStorage) data = dataStorage;
+    return data;
 }
