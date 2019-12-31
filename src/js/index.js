@@ -1,6 +1,8 @@
 import { elements } from './views/base';
-import Player from './model/Player';
+import Player from './models/Player';
+import PlayerList from './models/PlayerList'
 import * as PlayerView from './views/player';
+import * as DiceView from './views/dice';
 import * as Storage from './controllers/Storage';
 
 /**
@@ -8,13 +10,13 @@ import * as Storage from './controllers/Storage';
 **/
 
 let data = {
-    round: 0,
     settings: {
-
+        max_throws: 3
     },
 
-    players: []
-
+    game: {
+        round: 0
+    }
 };
 
 /**
@@ -26,39 +28,58 @@ class gameController {
     }
 
     init() {
-        this.loadData();
+
+        data.players = new PlayerList();
+        this.loadSettings();
         this.loadPlayers();
+        this.renderPlayers();
         this.initEvents();
 
         window.data = data;
+        
     }
 
-    loadData() {
-        data = Storage.read(data);
+    loadSettings() {
+        Storage.read(data).settingsStorage;
     }
 
     loadPlayers() {
-        data.players.forEach(player => {
-            PlayerView.renderListItem(player);
-        });
+        
+        const players = Storage.read(data).playerStorage;
+
+        if (players) {
+            players.forEach(player => {
+                data.players.add(player)
+            })
+        }
+
+    }
+
+    renderPlayers() {
+
+        if( data.players ) {
+            data.players._items.forEach(player => {
+                PlayerView.renderListItem(player);
+            });
+        }
+
     }
 
     initEvents() {
         elements.settings.addButton.addEventListener('click', (e) => {
             e.preventDefault();
             const value = elements.settings.addName.value;
-            console.log(value);
         
             // Add player to data object
-            const newPlayer = new Player(value);
-            data.players.push(newPlayer);
+            let player = new Player(value);
+            data.players.add(player);
         
             // Add player to the list
-            PlayerView.renderListItem(newPlayer);
+            PlayerView.renderListItem(player);
         
             // Add player to the LocalStorage
             Storage.persist(data);
-        })
+        });
 
         elements.settings.playerList.addEventListener('click', (e) => {
             e.preventDefault();
@@ -67,15 +88,35 @@ class gameController {
             if (listItem) {
                 const id = listItem.dataset.id;
 
-                if (e.target.matches('.js-delete, .js-delete *')) {
-                    console.log("Delete");
-                    // Delete from the state & ui
-                    // data.players.delete(id);
-                    // Storage.persist(data);
-                    // todoView.deleteItem(id);
+                if (e.target.matches('.js-title, .js-title *')) {
+                    let newValue;
+            
+                    e.target.closest('.js-title').addEventListener('focusout', () => {
+                        newValue = e.target.closest('.js-title').textContent;
+                        data.players.changeName(id, newValue);
+                        Storage.persist(data);
+                    })
                 };
+
+                if (e.target.matches('.js-delete, .js-delete *')) {
+                    data.players.delete(id);
+
+                    PlayerView.deleteItem(id)
+                    Storage.persist(data);
+                }
             }
-        })
+        });
+
+        elements.game.throw.addEventListener('click', (e) => {
+            e.preventDefault();
+            const startPlayer = data.players._items[0];
+            const id = startPlayer._id;
+            data.players.throw(id);
+            Storage.persist(data);
+            const lastThrow = data.players.find(id)._throws.length - 1;
+            const lastThrowObj = data.players.find(id)._throws[lastThrow];
+            DiceView.renderDice(lastThrowObj.result);
+        });
     }
 }
 

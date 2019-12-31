@@ -4,5 +4,9 @@ export const elements = {
         addName: document.querySelector('.js-addName'),
         addButton: document.querySelector('.js-addButton'),
         playerList: document.querySelector('.settings__players')
+    },
+    game: {
+        throw: document.querySelector('.js-throw'),
+        dices: document.querySelector('.dices')
     }
 }

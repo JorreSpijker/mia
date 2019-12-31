@@ -8,6 +8,16 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <title>MIA</title>
+    <style>
+        html, body {
+            background: #343a40;
+            color: #f1f3f5;
+        }
+
+        a, button {
+            color: #f1f3f5;
+        }
+    </style>
 </head>
 
 <body>
@@ -15,16 +25,48 @@
         <h1>MIA</h1>
     </header>
     
-    <div class="settings">
+    <section class="settings">
         <h2>Game settings</h2>
         <form class="settings__form">
             <input type="text" name="" id="" class="js-addName">
             <button class="js-addButton">Add</button>
         </form>
         <ul class="settings__players">
-            <li></li>
         </ul>
-    </div>
+    </section>
+
+    <section>
+        <div class="playfield">
+            <div class="playfield__dices">
+                <div class="dices">
+
+                    <div class="js-dice1">
+
+                        <!-- <div class="dot"></div> -->
+                    </div>
+                    <div class="js-dice2">
+                        <div class="dot"></div>
+                    </div>
+                    
+                </div>
+
+                <div class="result">
+
+                </div>
+                <div class="playfield__dices-bottom">
+                    <button class="btn js-throw">Throw!</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <div class="bottom">
+            <button class="btn" id="js-nextPlayer" disabled>Volgende speler</button>
+        </div>
+    </section>
+
+
 
     <script src="js/app.js"></script>
 
