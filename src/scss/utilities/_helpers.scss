@@ -1,0 +1,31 @@
+.valign {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translate(0,-50%);
+  transform: translate(0,-50%);
+}
+
+.halign {
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translate(-50%,0);
+  transform: translate(-50%,0);
+}
+
+.vhalign {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+.hide { display: none; }
+.show { display: block; }
+
+.is-sticky {
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+}

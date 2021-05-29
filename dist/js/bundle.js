@@ -3575,39 +3575,15 @@ eval("/* WEBPACK VAR INJECTION */(function(process) {/* \n(The MIT License)\nCop
 
 /***/ }),
 
-/***/ "./src/js/controllers/GameController.js":
-/*!**********************************************!*\
-  !*** ./src/js/controllers/GameController.js ***!
-  \**********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return Game; });\n/* harmony import */ var _models_playersModel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../models/playersModel */ \"./src/js/models/playersModel.js\");\n/* harmony import */ var _PlayersController__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PlayersController */ \"./src/js/controllers/PlayersController.js\");\n/* harmony import */ var _StorageController__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./StorageController */ \"./src/js/controllers/StorageController.js\");\n/* harmony import */ var _views_addPlayerView__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../views/addPlayerView */ \"./src/js/views/addPlayerView.js\");\n\n\n\n\nclass Game {\n  constructor() {}\n\n  loadItems() {\n    data = _StorageController__WEBPACK_IMPORTED_MODULE_2__[\"read\"](data);\n  }\n\n  loadControllers() {\n    const ControlPlayers = new _PlayersController__WEBPACK_IMPORTED_MODULE_1__[\"default\"]();\n    ControlPlayers.init(data);\n  }\n\n  init() {\n    console.log(\"Mia initialized\");\n    this.loadItems();\n    this.loadControllers();\n  }\n\n}\n\n//# sourceURL=webpack:///./src/js/controllers/GameController.js?");
-
-/***/ }),
-
-/***/ "./src/js/controllers/PlayersController.js":
-/*!*************************************************!*\
-  !*** ./src/js/controllers/PlayersController.js ***!
-  \*************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return PlayersController; });\n/* harmony import */ var _models_playersModel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../models/playersModel */ \"./src/js/models/playersModel.js\");\n/* harmony import */ var _views_addPlayerView__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../views/addPlayerView */ \"./src/js/views/addPlayerView.js\");\n/* harmony import */ var _views_base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../views/base */ \"./src/js/views/base.js\");\n/* harmony import */ var _controllers_StorageController__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../controllers/StorageController */ \"./src/js/controllers/StorageController.js\");\n\n\n\n\n/**\n    TODO CONTROLLER\n**/\n\nclass PlayersController {\n  constructor() {}\n\n  loadPlayers() {\n    data.game.players.items.forEach(player => {\n      console.log(player);\n      _views_addPlayerView__WEBPACK_IMPORTED_MODULE_1__[\"renderAddPlayer\"](player);\n    });\n  }\n\n  addToModel(name) {\n    data.game.players.add(name);\n  }\n\n  initEvents() {\n    _views_base__WEBPACK_IMPORTED_MODULE_2__[\"elements\"].settings.start.addEventListener(\"click\", () => {\n      let players = document.querySelectorAll(\".settings-container__player\");\n      players.forEach(player => {\n        let name = player.querySelector('.js-settingsName').value;\n        data.game.players.add(name);\n        _controllers_StorageController__WEBPACK_IMPORTED_MODULE_3__[\"persist\"](data);\n      });\n    }); // elements.settings.addField.addEventListener(\"click\", () => {\n    //     addPlayerView.renderAddPlayer();\n    // });\n  }\n\n  init() {\n    this.initEvents();\n    this.loadPlayers();\n  }\n\n}\n\n//# sourceURL=webpack:///./src/js/controllers/PlayersController.js?");
-
-/***/ }),
-
-/***/ "./src/js/controllers/StorageController.js":
-/*!*************************************************!*\
-  !*** ./src/js/controllers/StorageController.js ***!
-  \*************************************************/
+/***/ "./src/js/controllers/Storage.js":
+/*!***************************************!*\
+  !*** ./src/js/controllers/Storage.js ***!
+  \***************************************/
 /*! exports provided: persist, read */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"persist\", function() { return persist; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"read\", function() { return read; });\n/**\n    LocalStorage\n*/\nconst persist = data => {\n  localStorage.setItem('data', JSON.stringify(data));\n};\nconst read = data => {\n  const dataStorage = JSON.parse(localStorage.getItem('data')); // Restore data from localStorage\n\n  return data = dataStorage;\n};\n\n//# sourceURL=webpack:///./src/js/controllers/StorageController.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"persist\", function() { return persist; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"read\", function() { return read; });\n/**\n    LocalStorage\n*/\nconst persist = data => {\n  localStorage.setItem('players', JSON.stringify(data.players._items));\n  localStorage.setItem('settings', JSON.stringify(data.settings));\n};\nconst read = () => {\n  const playerStorage = JSON.parse(localStorage.getItem('players'));\n  const settingsStorage = JSON.parse(localStorage.getItem('settings')); // Restore data from localStorage\n\n  return {\n    playerStorage: playerStorage,\n    settingsStorage: settingsStorage\n  };\n};\n\n//# sourceURL=webpack:///./src/js/controllers/Storage.js?");
 
 /***/ }),
 
@@ -3619,31 +3595,31 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _controllers_GameController__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./controllers/GameController */ \"./src/js/controllers/GameController.js\");\n/* harmony import */ var _controllers_StorageController__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./controllers/StorageController */ \"./src/js/controllers/StorageController.js\");\n\n\n/**\n    Global state of the app\n**/\n\nconst data = {};\nwindow.data = data;\n/**\n    Controllers definition\n**/\n\nconst Game = new _controllers_GameController__WEBPACK_IMPORTED_MODULE_0__[\"default\"](data);\nGame.init();\n\n//# sourceURL=webpack:///./src/js/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _views_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./views/base */ \"./src/js/views/base.js\");\n/* harmony import */ var _models_Player__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./models/Player */ \"./src/js/models/Player.js\");\n/* harmony import */ var _models_PlayerList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./models/PlayerList */ \"./src/js/models/PlayerList.js\");\n/* harmony import */ var _views_player__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./views/player */ \"./src/js/views/player.js\");\n/* harmony import */ var _views_dice__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./views/dice */ \"./src/js/views/dice.js\");\n/* harmony import */ var _controllers_Storage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./controllers/Storage */ \"./src/js/controllers/Storage.js\");\n\n\n\n\n\n\n/**\n    Global state of the app\n**/\n\nlet data = {\n  settings: {\n    max_throws: 3\n  },\n  game: {\n    round: 0\n  }\n};\n/**\n    Controllers definition\n**/\n\nclass gameController {\n  constructor() {}\n\n  init() {\n    data.players = new _models_PlayerList__WEBPACK_IMPORTED_MODULE_2__[\"default\"]();\n    this.loadSettings();\n    this.loadPlayers();\n    this.renderPlayers();\n    this.initEvents();\n    window.data = data;\n  }\n\n  loadSettings() {\n    _controllers_Storage__WEBPACK_IMPORTED_MODULE_5__[\"read\"](data).settingsStorage;\n  }\n\n  loadPlayers() {\n    const players = _controllers_Storage__WEBPACK_IMPORTED_MODULE_5__[\"read\"](data).playerStorage;\n\n    if (players) {\n      players.forEach(player => {\n        data.players.add(player);\n      });\n    }\n  }\n\n  renderPlayers() {\n    if (data.players) {\n      data.players._items.forEach(player => {\n        _views_player__WEBPACK_IMPORTED_MODULE_3__[\"renderListItem\"](player);\n      });\n    }\n  }\n\n  initEvents() {\n    _views_base__WEBPACK_IMPORTED_MODULE_0__[\"elements\"].settings.addButton.addEventListener('click', e => {\n      e.preventDefault();\n      const value = _views_base__WEBPACK_IMPORTED_MODULE_0__[\"elements\"].settings.addName.value; // Add player to data object\n\n      let player = new _models_Player__WEBPACK_IMPORTED_MODULE_1__[\"default\"](value);\n      data.players.add(player); // Add player to the list\n\n      _views_player__WEBPACK_IMPORTED_MODULE_3__[\"renderListItem\"](player); // Add player to the LocalStorage\n\n      _controllers_Storage__WEBPACK_IMPORTED_MODULE_5__[\"persist\"](data);\n    });\n    _views_base__WEBPACK_IMPORTED_MODULE_0__[\"elements\"].settings.playerList.addEventListener('click', e => {\n      e.preventDefault();\n      const listItem = e.target.closest('.list__item');\n\n      if (listItem) {\n        const id = listItem.dataset.id;\n\n        if (e.target.matches('.js-title, .js-title *')) {\n          let newValue;\n          e.target.closest('.js-title').addEventListener('focusout', () => {\n            newValue = e.target.closest('.js-title').textContent;\n            data.players.changeName(id, newValue);\n            _controllers_Storage__WEBPACK_IMPORTED_MODULE_5__[\"persist\"](data);\n          });\n        }\n\n        ;\n\n        if (e.target.matches('.js-delete, .js-delete *')) {\n          data.players.delete(id);\n          _views_player__WEBPACK_IMPORTED_MODULE_3__[\"deleteItem\"](id);\n          _controllers_Storage__WEBPACK_IMPORTED_MODULE_5__[\"persist\"](data);\n        }\n      }\n    });\n    _views_base__WEBPACK_IMPORTED_MODULE_0__[\"elements\"].game.throw.addEventListener('click', e => {\n      e.preventDefault();\n      const startPlayer = data.players._items[0];\n      const id = startPlayer._id;\n      data.players.throw(id);\n      _controllers_Storage__WEBPACK_IMPORTED_MODULE_5__[\"persist\"](data);\n      const lastThrow = data.players.find(id)._throws.length - 1;\n\n      const lastThrowObj = data.players.find(id)._throws[lastThrow];\n\n      _views_dice__WEBPACK_IMPORTED_MODULE_4__[\"renderDice\"](lastThrowObj.result);\n    });\n  }\n\n}\n\nconst game = new gameController();\ngame.init();\n\n//# sourceURL=webpack:///./src/js/index.js?");
 
 /***/ }),
 
-/***/ "./src/js/models/playersModel.js":
-/*!***************************************!*\
-  !*** ./src/js/models/playersModel.js ***!
-  \***************************************/
+/***/ "./src/js/models/Player.js":
+/*!*********************************!*\
+  !*** ./src/js/models/Player.js ***!
+  \*********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return Player; });\n/* harmony import */ var uniqid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uniqid */ \"./node_modules/uniqid/index.js\");\n/* harmony import */ var uniqid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uniqid__WEBPACK_IMPORTED_MODULE_0__);\n\nclass Player {\n  constructor() {\n    this.items = [];\n  }\n\n  add(name) {\n    const player = {\n      id: uniqid__WEBPACK_IMPORTED_MODULE_0___default()(),\n      name: name\n    };\n    this.items.push(player);\n    return player;\n  }\n\n}\n\n//# sourceURL=webpack:///./src/js/models/playersModel.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return Player; });\n/* harmony import */ var uniqid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uniqid */ \"./node_modules/uniqid/index.js\");\n/* harmony import */ var uniqid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uniqid__WEBPACK_IMPORTED_MODULE_0__);\n\nclass Player {\n  constructor(name) {\n    this._name = name;\n    this._id = uniqid__WEBPACK_IMPORTED_MODULE_0___default()();\n    this._amountThrows = 0;\n    this._throws = [];\n    this._round = 0;\n    this._roundResults = {};\n  }\n\n}\n\n//# sourceURL=webpack:///./src/js/models/Player.js?");
 
 /***/ }),
 
-/***/ "./src/js/views/addPlayerView.js":
-/*!***************************************!*\
-  !*** ./src/js/views/addPlayerView.js ***!
-  \***************************************/
-/*! exports provided: renderAddPlayer, deleteItem */
+/***/ "./src/js/models/PlayerList.js":
+/*!*************************************!*\
+  !*** ./src/js/models/PlayerList.js ***!
+  \*************************************/
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"renderAddPlayer\", function() { return renderAddPlayer; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"deleteItem\", function() { return deleteItem; });\n/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./base */ \"./src/js/views/base.js\");\n\nconst renderAddPlayer = player => {\n  const markup = `\n        <div class=\"settings-container__player\">\n            <input type=\"text\" name=\"name\" class=\"js-settingsName\" placeholder=\"Name\" value=\"${player.name}\">\n            <button class=\"js-settingsName-delete\">Delete</button>\n        </div>`;\n  _base__WEBPACK_IMPORTED_MODULE_0__[\"elements\"].settings.container.insertAdjacentHTML(\"afterend\", markup);\n};\nconst deleteItem = id => {\n  const item = document.querySelector(`[data-id=\"${id}\"]`);\n  item.parentElement.removeChild(item);\n};\n\n//# sourceURL=webpack:///./src/js/views/addPlayerView.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return PlayerList; });\nclass PlayerList {\n  constructor() {\n    this._items = [];\n  }\n\n  add(item) {\n    this._items.push(item);\n\n    return item;\n  }\n\n  find(id) {\n    const index = this._items.findIndex(el => el._id === id);\n\n    const item = this._items[index];\n    return item;\n  }\n\n  changeName(id, name) {\n    const item = this.find(id);\n    return item._name = name;\n  }\n\n  delete(id) {\n    const index = this._items.findIndex(el => el._id === id);\n\n    this._items.splice(index, 1);\n  }\n\n  throw(id) {\n    const player = this.find(id);\n\n    if (player._amountThrows < data.settings.max_throws) {\n      let dice1, dice2, maxDice, minDice, result;\n      let throwObject = {};\n      dice1 = (Math.floor(Math.random() * 6) + 1).toString();\n      dice2 = (Math.floor(Math.random() * 6) + 1).toString();\n\n      if (dice1 === dice2) {\n        result = dice1 * 100;\n        maxDice = dice1;\n        minDice = dice2;\n      } else if (dice1 > dice2) {\n        result = dice1 + dice2;\n        maxDice = dice1;\n        minDice = dice2;\n      } else {\n        result = dice2 + dice1;\n        maxDice = dice2;\n        minDice = dice1;\n      }\n\n      throwObject = {\n        dice1: dice1,\n        dice2: dice2,\n        maxDice: maxDice,\n        minDice: minDice,\n        result: result\n      };\n\n      player._throws.push(throwObject);\n\n      player._amountThrows++;\n    }\n  }\n\n}\n\n//# sourceURL=webpack:///./src/js/models/PlayerList.js?");
 
 /***/ }),
 
@@ -3655,7 +3631,31 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"elements\", function() { return elements; });\nconst elements = {\n  settings: {\n    container: document.querySelector('.settings-container'),\n    start: document.querySelector('#js-settings-start'),\n    addPlayer: document.querySelector('.js-settingsName-add')\n  },\n  item2: {\n    subitem: document.querySelector('body')\n  }\n};\n\n//# sourceURL=webpack:///./src/js/views/base.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"elements\", function() { return elements; });\nconst elements = {\n  settings: {\n    form: document.querySelector('.settings__form'),\n    addName: document.querySelector('.js-addName'),\n    addButton: document.querySelector('.js-addButton'),\n    playerList: document.querySelector('.settings__players')\n  },\n  game: {\n    throw: document.querySelector('.js-throw'),\n    dices: document.querySelector('.dices')\n  }\n};\n\n//# sourceURL=webpack:///./src/js/views/base.js?");
+
+/***/ }),
+
+/***/ "./src/js/views/dice.js":
+/*!******************************!*\
+  !*** ./src/js/views/dice.js ***!
+  \******************************/
+/*! exports provided: renderDice */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"renderDice\", function() { return renderDice; });\n/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./base */ \"./src/js/views/base.js\");\n\nconst renderDice = result => {\n  _base__WEBPACK_IMPORTED_MODULE_0__[\"elements\"].game.dices.innerHTML = \"\";\n  const markup = `${result}`;\n  _base__WEBPACK_IMPORTED_MODULE_0__[\"elements\"].game.dices.insertAdjacentHTML(\"afterbegin\", markup);\n};\n\n//# sourceURL=webpack:///./src/js/views/dice.js?");
+
+/***/ }),
+
+/***/ "./src/js/views/player.js":
+/*!********************************!*\
+  !*** ./src/js/views/player.js ***!
+  \********************************/
+/*! exports provided: renderListItem, deleteItem */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"renderListItem\", function() { return renderListItem; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"deleteItem\", function() { return deleteItem; });\n/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./base */ \"./src/js/views/base.js\");\n\nconst renderListItem = player => {\n  const markup = `\n                    <li class=\"list__item\" data-id=\"${player._id}\">\n                        <span class=\"js-title\" contenteditable>${player._name}</span>\n                        <a class=\"js-delete\" href=\"#\">\n                            Delete\n                        </a>\n                    </li>`;\n  _base__WEBPACK_IMPORTED_MODULE_0__[\"elements\"].settings.playerList.insertAdjacentHTML(\"afterbegin\", markup);\n};\nconst deleteItem = id => {\n  const item = document.querySelector(`[data-id=\"${id}\"]`);\n  item.parentElement.removeChild(item);\n};\n\n//# sourceURL=webpack:///./src/js/views/player.js?");
 
 /***/ }),
 

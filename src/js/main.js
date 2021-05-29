@@ -6,8 +6,8 @@ import * as DiceView from './views/dice';
 import * as Storage from './controllers/Storage';
 
 /**
-    Global state of the app
-**/
+ Global state of the app
+ **/
 
 let data = {
     settings: {
@@ -20,8 +20,8 @@ let data = {
 };
 
 /**
-    Controllers definition
-**/
+ Controllers definition
+ **/
 
 class gameController {
     constructor() {
@@ -36,7 +36,7 @@ class gameController {
         this.initEvents();
 
         window.data = data;
-        
+
     }
 
     loadSettings() {
@@ -44,7 +44,7 @@ class gameController {
     }
 
     loadPlayers() {
-        
+
         const players = Storage.read(data).playerStorage;
 
         if (players) {
@@ -56,7 +56,6 @@ class gameController {
     }
 
     renderPlayers() {
-
         if( data.players ) {
             data.players._items.forEach(player => {
                 PlayerView.renderListItem(player);
@@ -69,16 +68,25 @@ class gameController {
         elements.settings.addButton.addEventListener('click', (e) => {
             e.preventDefault();
             const value = elements.settings.addName.value;
-        
+
             // Add player to data object
-            let player = new Player(value);
-            data.players.add(player);
-        
-            // Add player to the list
-            PlayerView.renderListItem(player);
-        
-            // Add player to the LocalStorage
-            Storage.persist(data);
+
+            if (value) {
+
+                let player = new Player(value);
+                data.players.add(player);
+
+                // Add player to the list
+                PlayerView.renderListItem(player);
+
+                // Add player to the LocalStorage
+                Storage.persist(data);
+
+                elements.settings.addName.value = '';
+            } else {
+                alert('Name is empty.');
+            }
+
         });
 
         elements.settings.playerList.addEventListener('click', (e) => {
@@ -90,7 +98,7 @@ class gameController {
 
                 if (e.target.matches('.js-title, .js-title *')) {
                     let newValue;
-            
+
                     e.target.closest('.js-title').addEventListener('focusout', () => {
                         newValue = e.target.closest('.js-title').textContent;
                         data.players.changeName(id, newValue);
@@ -99,13 +107,22 @@ class gameController {
                 };
 
                 if (e.target.matches('.js-delete, .js-delete *')) {
-                    data.players.delete(id);
 
-                    PlayerView.deleteItem(id)
-                    Storage.persist(data);
+                    if(window.confirm(`Wil je de speler ${data.players.find(id)._name} verwijderen?`)) {
+                        data.players.delete(id);
+
+                        PlayerView.deleteItem(id)
+                        Storage.persist(data);
+                    }
                 }
             }
         });
+
+        elements.game.start.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            console.log(data);
+        })
 
         elements.game.throw.addEventListener('click', (e) => {
             e.preventDefault();
@@ -116,6 +133,10 @@ class gameController {
             const lastThrow = data.players.find(id)._throws.length - 1;
             const lastThrowObj = data.players.find(id)._throws[lastThrow];
             DiceView.renderDice(lastThrowObj.result);
+        });
+
+        elements.game.next.addEventListener('click', (e) => {
+            e.preventDefault();
         });
     }
 }

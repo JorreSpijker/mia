@@ -7,6 +7,8 @@ export const elements = {
     },
     game: {
         throw: document.querySelector('.js-throw'),
-        dices: document.querySelector('.dices')
+        dices: document.querySelector('.dices'),
+        next: document.querySelector('.js-next'),
+        start: document.querySelector('.js-start')
     }
 }

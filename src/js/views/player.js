@@ -1,14 +1,14 @@
 import { elements } from "./base";
 
 export const renderListItem = player => {
+    elements.settings.playerList.insertAdjacentHTML("afterbegin", markup);
     const markup = `
                     <li class="list__item" data-id="${player._id}">
-                        <span class="js-title" contenteditable>${player._name}</span>
+                        <span class="js-title">${player._name}</span>
                         <a class="js-delete" href="#">
                             Delete
                         </a>
                     </li>`;
-    elements.settings.playerList.insertAdjacentHTML("afterbegin", markup);
 };
 
 export const deleteItem = id => {

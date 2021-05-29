@@ -1,0 +1,54 @@
+body {
+  margin: 0;
+  font-family: "Roboto Condensed",sans-serif;
+  color: #454545;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5em;
+  background: #fff;
+}
+
+h1, h2, h3, h4, h5, h5 {
+  line-height: 1.5em;
+  margin: 0;
+}
+
+h1 { font-size: 3em; }
+h2 { font-size: 2.5em; }
+h3 { font-size: 2em; }
+h4 { font-size: 1.5em; }
+h5 { font-size: 1em; }
+h6 { font-size: .75em; }
+
+a {
+
+  &:focus {
+    outline: 2px dotted;
+  }
+  &:active {
+    outline: 0;
+  }
+  &:hover {
+    outline: 0;
+  }
+}
+
+strong, b{
+  font-weight: 700;
+}
+
+button[disabled] {
+  cursor: default;
+}
+input[disabled] {
+  cursor: default;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 15px;
+  position: relative;
+  @media only screen and (min-width:640px) {
+    margin: 0 auto;
+  }
+}

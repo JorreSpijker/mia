@@ -1,12 +1,14 @@
 {
-    "name": "Todo",
+    "name": "Mia",
     "version": "1.0.0",
-    "description": "Todo MVC",
+    "description": "Mia",
     "main": "index.js",
     "scripts": {
         "dev": "webpack --mode development",
         "build": "webpack --mode production",
-        "start": "webpack-dev-server --mode development --open"
+        "start": "webpack-dev-server --mode development --open",
+        "css": "node-sass src/scss/style.scss -o dist/css",
+        "css:watch": "npm run css && node-sass src/scss/style.scss -wo dist/css"
     },
     "author": "Jorre Spijker",
     "license": "ISC",
@@ -18,7 +20,8 @@
         "html-webpack-plugin": "^3.2.0",
         "webpack": "^4.41.0",
         "webpack-cli": "^3.3.9",
-        "webpack-dev-server": "^3.8.2"
+        "webpack-dev-server": "^3.8.2",
+        "node-sass": "^3.4.2"
     },
     "dependencies": {
         "axios": "^0.19.0",

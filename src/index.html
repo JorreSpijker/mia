@@ -24,49 +24,72 @@
     <header>
         <h1>MIA</h1>
     </header>
-    
-    <section class="settings">
-        <h2>Game settings</h2>
-        <form class="settings__form">
-            <input type="text" name="" id="" class="js-addName">
-            <button class="js-addButton">Add</button>
-        </form>
-        <ul class="settings__players">
-        </ul>
-    </section>
 
-    <section>
-        <div class="playfield">
-            <div class="playfield__dices">
-                <div class="dices">
+    <form class="settings__form">
+        <input type="text" name="" id="" class="js-addName">
+        <button class="js-addButton">Add</button>
+    </form>
+    <button class="c-btn js-start">Start</button>
+    <ul class="settings__players playfield__ranking">
+    </ul>
 
-                    <div class="js-dice1">
 
-                        <!-- <div class="dot"></div> -->
-                    </div>
-                    <div class="js-dice2">
-                        <div class="dot"></div>
-                    </div>
-                    
-                </div>
+    <div class="dices">
 
-                <div class="result">
+        <div class="js-dice1">
 
-                </div>
-                <div class="playfield__dices-bottom">
-                    <button class="btn js-throw">Throw!</button>
-                </div>
-            </div>
+             <div class="dot"></div>
         </div>
-    </section>
-    
-    <section>
-        <div class="bottom">
-            <button class="btn" id="js-nextPlayer" disabled>Volgende speler</button>
+        <div class="js-dice2">
+            <div class="dot"></div>
         </div>
-    </section>
 
+    </div>
+    <button class="c-btn js-throw">Gooi</button>
+    <button class="c-btn js-next">Volgende</button>
 
+<!--    <div class="js-modal overlay">-->
+<!--        <section class="settings modal">-->
+<!--            <h2>Players</h2>-->
+<!--            <form class="settings__form">-->
+<!--                <input type="text" name="" id="" class="js-addName">-->
+<!--                <button class="js-addButton">Add</button>-->
+<!--            </form>-->
+<!--            <ul class="settings__players playfield__ranking">-->
+<!--            </ul>-->
+<!--        </section>-->
+<!--    </div>-->
+
+<!--    <section>-->
+<!--        <div class="playfield">-->
+<!--            <div class="playfield__dices">-->
+<!--                <div class="dices">-->
+
+<!--                    <div class="js-dice1">-->
+
+<!--                        &lt;!&ndash; <div class="dot"></div> &ndash;&gt;-->
+<!--                    </div>-->
+<!--                    <div class="js-dice2">-->
+<!--                        <div class="dot"></div>-->
+<!--                    </div>-->
+<!--                    -->
+<!--                </div>-->
+
+<!--                <div class="result">-->
+
+<!--                </div>-->
+<!--                <div class="playfield__dices-bottom">-->
+<!--                    <button class="c-btn js-throw">Throw!</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
+    
+<!--    <section>-->
+<!--        <div class="s-footer">-->
+<!--            <button class="c-btn" id="js-nextPlayer" disabled>Volgende speler</button>-->
+<!--        </div>-->
+<!--    </section>-->
 
     <script src="js/app.js"></script>
 
