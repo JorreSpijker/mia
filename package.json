@@ -1,32 +1,21 @@
 {
-    "name": "Mia",
-    "version": "1.0.0",
-    "description": "Mia",
-    "main": "index.js",
-    "scripts": {
-        "dev": "webpack --mode development",
-        "build": "webpack --mode production",
-        "start": "webpack-dev-server --mode development --open",
-        "css": "node-sass src/scss/style.scss -o dist/css",
-        "css:watch": "npm run css && node-sass src/scss/style.scss -wo dist/css"
-    },
-    "author": "Jorre Spijker",
-    "license": "ISC",
-    "devDependencies": {
-        "@babel/core": "^7.6.2",
-        "@babel/polyfill": "^7.6.0",
-        "@babel/preset-env": "^7.6.2",
-        "babel-loader": "^8.0.6",
-        "html-webpack-plugin": "^3.2.0",
-        "webpack": "^4.41.0",
-        "webpack-cli": "^3.3.9",
-        "webpack-dev-server": "^3.8.2",
-        "node-sass": "^3.4.2"
-    },
-    "dependencies": {
-        "axios": "^0.19.0",
-        "babel-polyfill": "^6.26.0",
-        "fractional": "^1.0.0",
-        "uniqid": "^5.0.3"
-    }
+  "name": "svelte-app",
+  "version": "1.0.0",
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "css-loader": "^5.0.1",
+    "mini-css-extract-plugin": "^1.3.4",
+    "svelte": "^3.31.2",
+    "svelte-loader": "^3.0.0",
+    "webpack": "^5.16.0",
+    "webpack-cli": "^4.4.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "scripts": {
+    "build": "cross-env NODE_ENV=production webpack",
+    "dev": "webpack serve --content-base public"
+  },
+  "dependencies": {
+    "uniqid": "^5.3.0"
+  }
 }

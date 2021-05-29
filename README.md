@@ -1,3 +1,3 @@
-# ES6-MVC
+# Mia game with Svelte
 
-Starter for an ES6 MVC project.
+The mia game created with Svelte and love.
